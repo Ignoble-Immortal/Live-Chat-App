@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Welcome to Chat App</h1>
+    <div id="join-container">
+        <input id="username-input" type="text" placeholder="Enter your username">
+        <input id="room-input" type="text" placeholder="Enter room key">
+        <button id="join-button">Join Room</button>
+    </div>
+    <ul id="messages" style="display:none;"></ul>
+    <div class="input-container" style="display:none;">
+        <input id="message-input" type="text" placeholder="Type your message here...">
+        <button id="upload-button">
+            <img src="upload-minimalistic-svgrepo-com.svg" alt="Upload">
+        </button>
+        <button id="send-button">
+            <img src="send-hor-svgrepo-com.svg" alt="Send">
+        </button>
+    </div>
+    <input type="file" id="file-input" style="display: none;">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

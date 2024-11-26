@@ -1,0 +1,246 @@
+body {
+    font-family: Arial, sans-serif; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('pexels-chat.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+#messages { 
+    list-style-type: none; 
+    padding: 0; 
+    margin: 20px 0; 
+    width: 80%;
+    max-width: 800px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#messages li { 
+    padding: 8px; 
+    margin-bottom: 10px; 
+    display: flex;
+}
+
+.sender { 
+    justify-content: flex-end; 
+}
+
+.receiver { 
+    justify-content: flex-start; 
+}
+
+.input-container {
+    display: flex; 
+    width: 80%;
+    max-width: 800px;
+}
+
+#message-input { 
+    flex-grow: 1;
+    border-radius: 20px;
+    width: 66.6%;
+    margin-right: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#send-button, #upload-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+#send-button img, #upload-button img {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
+    padding: 2px;
+}
+
+#send-button img {
+    background-color: #03b500;
+    border-radius: 50%;
+}
+
+#upload-button img {
+    margin-right: 6px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+
+
+h1 { 
+    text-align: center; 
+    color: #ffffff;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+#join-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 300px;
+}
+
+#username-input, #room-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #333;
+    background-color: #f2f2f2;
+    outline: none;
+}
+
+#username-input:focus, #room-input:focus {
+    background-color: #e6e6e6;
+}
+
+#join-button {
+    background-color: #03b500;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#join-button:hover {
+    background-color: #028a00;
+}
+
+.message-content {
+    max-width: 60%;
+    padding: 8px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    color: #000;
+}
+
+.system-message {
+    justify-content: center;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+body {
+    font-family: Arial, sans-serif; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('pexels-chat.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+h1 { 
+    text-align: center; 
+    color: #fff;
+}
+
+#messages { 
+    list-style-type: none; 
+    padding: 0; 
+    margin: 20px 0; 
+    width: 80%;
+    max-width: 800px;
+    flex-grow: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+#messages::-webkit-scrollbar {
+    display: none;
+}
+
+#messages li { 
+    padding: 8px; 
+    margin-bottom: 10px; 
+    display: flex;
+}
+
+.sender { 
+    justify-content: flex-end; 
+}
+
+.receiver { 
+    justify-content: flex-start; 
+}
+
+.message-content {
+    max-width: 60%;
+    padding: 8px;
+    border-radius: 8px;
+    word-wrap: break-word;
+}
+
+.input-container {
+    display: flex; 
+    width: 80%;
+    max-width: 800px;
+}
+
+#message-input { 
+    flex-grow: 1;
+    border-radius: 20px;
+    width: 66.6%;
+    margin-right: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#send-button, #upload-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+#send-button img, #upload-button img {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
+    padding: 2px;
+}
+
+#send-button img {
+    background-color: #03b500;
+    border-radius: 50%;
+}
+
+#upload-button img {
+    margin-right: 6px;
+    background-color: #fff;
+    border-radius: 50%;
+}
