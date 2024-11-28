@@ -152,53 +152,6 @@ function addMessage(username, msg, sender) {
 //     scrollToBottom();
 // }
 
-// function addFileMessage(username, filename, sender) {
-//     const item = document.createElement('li');
-//     item.className = `mb-4 flex ${socket.id === sender ? 'justify-end' : 'justify-start'}`;
-
-//     const messageBubble = document.createElement('div');
-//     messageBubble.className = `rounded-lg p-3 shadow-md max-w-sm ${
-//         socket.id === sender ? 'bg-green-500 text-white' : 'bg-gray-700 text-gray-300'
-//     }`;
-
-//     if (socket.id !== sender) {
-//         const senderName = document.createElement('p');
-//         senderName.className = 'text-sm text-green-400 font-medium mb-1';
-//         senderName.textContent = username;
-//         messageBubble.appendChild(senderName);
-//     }
-
-//     // Check file type for image
-//     const fileExtension = filename.split('.').pop().toLowerCase();
-//     const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
-
-//     const link = document.createElement('a');
-//     link.href = `/uploads/${filename}`;
-//     link.target = '_blank';
-//     link.download = filename;
-
-//     if (imageExtensions.includes(fileExtension)) {
-//         // Display the image with a link
-//         const img = document.createElement('img');
-//         img.src = `/uploads/${filename}`;
-//         img.alt = filename;
-//         img.className = 'rounded-md max-w-full h-auto';
-//         link.appendChild(img);
-//     } else {
-//         // Display a download link for non-image files
-//         link.textContent = `📎 ${filename}`;
-//         link.className = 'underline';
-//     }
-
-//     messageBubble.appendChild(link);
-//     item.appendChild(messageBubble);
-//     messages.appendChild(item);
-//     scrollToBottom();
-// }
-
-// Ensure this code is added to existing `/public/script.js`
-
-// Update `addFileMessage` to include download links
 function addFileMessage(username, filename, sender) {
     const item = document.createElement('li');
     item.className = `mb-4 flex ${socket.id === sender ? 'justify-end' : 'justify-start'}`;
@@ -215,6 +168,7 @@ function addFileMessage(username, filename, sender) {
         messageBubble.appendChild(senderName);
     }
 
+    // Check file type for image
     const fileExtension = filename.split('.').pop().toLowerCase();
     const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
 
@@ -224,16 +178,16 @@ function addFileMessage(username, filename, sender) {
     link.download = filename;
 
     if (imageExtensions.includes(fileExtension)) {
-        // Render image preview
+        // Display the image with a link
         const img = document.createElement('img');
         img.src = `/uploads/${filename}`;
         img.alt = filename;
         img.className = 'rounded-md max-w-full h-auto';
         link.appendChild(img);
     } else {
-        // Render file download link
-        link.textContent = `📎 Download ${filename}`;
-        link.className = 'underline text-blue-400 hover:text-blue-500';
+        // Display a download link for non-image files
+        link.textContent = `📎 ${filename}`;
+        link.className = 'underline';
     }
 
     messageBubble.appendChild(link);
