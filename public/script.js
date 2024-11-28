@@ -26,32 +26,128 @@ function scrollToBottom(){
     messages.scrollTop = messages.scrollHeight;
 }
 
-function addMessage(username, msg, sender){
+// function addMessage(username, msg, sender){
+//     const item = document.createElement('li');
+//     item.className = socket.id === sender ? 'sender' : 'receiver';
+//     const messageContent = document.createElement('div');
+//     messageContent.className = 'message-content';
+//     messageContent.style.backgroundColor = socket.id === sender ? '#d4edda' : '#ffffff';
+//     messageContent.textContent = `${username}: ${msg}`;
+//     item.appendChild(messageContent);
+//     messages.appendChild(item);
+//     scrollToBottom();
+// }
+
+function addMessage(username, msg, sender) {
     const item = document.createElement('li');
-    item.className = socket.id === sender ? 'sender' : 'receiver';
-    const messageContent = document.createElement('div');
-    messageContent.className = 'message-content';
-    messageContent.style.backgroundColor = socket.id === sender ? '#d4edda' : '#ffffff';
-    messageContent.textContent = `${username}: ${msg}`;
-    item.appendChild(messageContent);
+    item.className = `mb-4 flex ${socket.id === sender ? 'justify-end' : 'justify-start'}`;
+
+    const messageBubble = document.createElement('div');
+    messageBubble.className = `rounded-lg p-3 shadow-md max-w-sm ${
+        socket.id === sender ? 'bg-green-500 text-white' : 'bg-gray-700 text-gray-300'
+    }`;
+
+    if (socket.id !== sender) {
+        const senderName = document.createElement('p');
+        senderName.className = 'text-sm text-green-400 font-medium mb-1';
+        senderName.textContent = username;
+        messageBubble.appendChild(senderName);
+    }
+
+    const messageText = document.createElement('p');
+    messageText.textContent = msg;
+    messageBubble.appendChild(messageText);
+
+    item.appendChild(messageBubble);
     messages.appendChild(item);
     scrollToBottom();
 }
 
-function addFileMessage(username, filename, sender){
-    const item = document.createElement('li');
-    item.className = socket.id === sender ? 'sender' : 'receiver';
-    const messageContent = document.createElement('div');
-    messageContent.className = 'message-content';
-    messageContent.style.backgroundColor = socket.id === sender ? '#d4edda' : '#ffffff';
-    
-    const link = document.createElement('a');
-    link.href = `/uploads/${filename}`;
-    link.target = '_blank';
-    link.textContent = `${username} sent a file: ${filename}`;
-    messageContent.appendChild(link);
 
-    item.appendChild(messageContent);
+// function addFileMessage(username, filename, sender){
+//     const item = document.createElement('li');
+//     item.className = socket.id === sender ? 'sender' : 'receiver';
+//     const messageContent = document.createElement('div');
+//     messageContent.className = 'message-content';
+//     messageContent.style.backgroundColor = socket.id === sender ? '#d4edda' : '#ffffff';
+    
+//     const link = document.createElement('a');
+//     link.href = `/uploads/${filename}`;
+//     link.target = '_blank';
+//     link.textContent = `${username} sent a file: ${filename}`;
+//     messageContent.appendChild(link);
+
+//     item.appendChild(messageContent);
+//     messages.appendChild(item);
+//     scrollToBottom();
+// }
+
+// function addFileMessage(username, filename, sender) {
+//     const item = document.createElement('li');
+//     item.className = `mb-4 flex ${socket.id === sender ? 'justify-end' : 'justify-start'}`;
+
+//     const messageBubble = document.createElement('div');
+//     messageBubble.className = `rounded-lg p-3 shadow-md max-w-sm ${
+//         socket.id === sender ? 'bg-green-500 text-white' : 'bg-gray-700 text-gray-300'
+//     }`;
+
+//     if (socket.id !== sender) {
+//         const senderName = document.createElement('p');
+//         senderName.className = 'text-sm text-green-400 font-medium mb-1';
+//         senderName.textContent = username;
+//         messageBubble.appendChild(senderName);
+//     }
+
+//     const fileLink = document.createElement('a');
+//     fileLink.href = `/uploads/${filename}`;
+//     fileLink.target = '_blank';
+//     fileLink.textContent = `📁 ${filename}`;
+//     fileLink.className = 'underline';
+//     messageBubble.appendChild(fileLink);
+
+//     item.appendChild(messageBubble);
+//     messages.appendChild(item);
+//     scrollToBottom();
+// }
+
+function addFileMessage(username, filename, sender) {
+    const item = document.createElement('li');
+    item.className = `mb-4 flex ${socket.id === sender ? 'justify-end' : 'justify-start'}`;
+
+    const messageBubble = document.createElement('div');
+    messageBubble.className = `rounded-lg p-3 shadow-md max-w-sm ${
+        socket.id === sender ? 'bg-green-500 text-white' : 'bg-gray-700 text-gray-300'
+    }`;
+
+    if (socket.id !== sender) {
+        const senderName = document.createElement('p');
+        senderName.className = 'text-sm text-green-400 font-medium mb-1';
+        senderName.textContent = username;
+        messageBubble.appendChild(senderName);
+    }
+
+    // Check file type for image
+    const fileExtension = filename.split('.').pop().toLowerCase();
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+
+    if (imageExtensions.includes(fileExtension)) {
+        // Display the image
+        const img = document.createElement('img');
+        img.src = `/uploads/${filename}`;
+        img.alt = filename;
+        img.className = 'rounded-md max-w-full h-auto';
+        messageBubble.appendChild(img);
+    } else {
+        // Display a download link for non-image files
+        const fileLink = document.createElement('a');
+        fileLink.href = `/uploads/${filename}`;
+        fileLink.target = '_blank';
+        fileLink.textContent = `📎 ${filename}`;
+        fileLink.className = 'underline';
+        messageBubble.appendChild(fileLink);
+    }
+
+    item.appendChild(messageBubble);
     messages.appendChild(item);
     scrollToBottom();
 }
