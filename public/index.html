@@ -4,26 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1>Welcome to Chat App</h1>
-    <div id="join-container">
-        <input id="username-input" type="text" placeholder="Enter your username">
-        <input id="room-input" type="text" placeholder="Enter room key">
-        <button id="join-button">Join Room</button>
+<body class="flex flex-col items-center justify-center h-screen m-0 bg-cover bg-center bg-no-repeat text-white" style="background-image: url('pexels-chat.jpg');">
+    <h1 class="text-4xl mb-10 text-center shadow-md">Welcome to Chat App</h1>
+
+    <div id="login-container" class="bg-black bg-opacity-60 p-8 rounded-lg shadow-lg text-center w-80">
+        <input id="login-email-input" type="email" placeholder="Enter your email" class="w-full p-3 mb-4 rounded-lg border-none text-gray-700 bg-gray-200 focus:bg-gray-300 outline-none">
+        <input id="login-password-input" type="password" placeholder="Enter your password" class="w-full p-3 mb-4 rounded-lg border-none text-gray-700 bg-gray-200 focus:bg-gray-300 outline-none">
+        <button id="login-button" class="w-full p-3 mt-5 rounded-lg bg-green-600 text-white font-medium transition duration-300 hover:bg-green-700">Login</button>
+        <p class="mt-4 text-gray-400">Don't have an account? <a href="#" id="show-signup" class="text-green-500">Sign Up</a></p>
     </div>
-    <ul id="messages" style="display:none;"></ul>
-    <div class="input-container" style="display:none;">
-        <input id="message-input" type="text" placeholder="Type your message here...">
-        <button id="upload-button">
-            <img src="upload-minimalistic-svgrepo-com.svg" alt="Upload">
+
+    <div id="signup-container" class="bg-black bg-opacity-60 p-8 rounded-lg shadow-lg text-center w-80 hidden">
+        <input id="signup-username-input" type="text" placeholder="Enter your username" class="w-full p-3 mb-4 rounded-lg border-none text-gray-700 bg-gray-200 focus:bg-gray-300 outline-none">
+        <input id="signup-email-input" type="email" placeholder="Enter your email" class="w-full p-3 mb-4 rounded-lg border-none text-gray-700 bg-gray-200 focus:bg-gray-300 outline-none">
+        <input id="signup-password-input" type="password" placeholder="Enter your password" class="w-full p-3 mb-4 rounded-lg border-none text-gray-700 bg-gray-200 focus:bg-gray-300 outline-none">
+        <button id="signup-button" class="w-full p-3 mt-5 rounded-lg bg-green-600 text-white font-medium transition duration-300 hover:bg-green-700">Sign Up</button>
+        <p class="mt-4 text-gray-400">Already have an account? <a href="#" id="show-login" class="text-green-500">Login</a></p>
+    </div>
+
+    <div id="join-container" class="bg-black bg-opacity-60 p-8 rounded-lg shadow-lg text-center w-80 hidden">
+        <input id="room-input" type="text" placeholder="Enter room key" class="w-full p-3 mb-4 rounded-lg border-none text-gray-700 bg-gray-200 focus:bg-gray-300 outline-none">
+        <button id="join-button" class="w-full p-3 mt-5 rounded-lg bg-green-600 text-white font-medium transition duration-300 hover:bg-green-700">Join Room</button>
+    </div>
+
+    <ul id="messages" class="list-none p-0 m-5 w-4/5 max-w-3xl flex-grow overflow-y-auto hidden"></ul>
+    <div class="input-container flex w-4/5 max-w-3xl hidden">
+        <input id="message-input" type="text" placeholder="Type your message here..." class="flex-grow p-3 mb-2 mr-2 rounded-full border-none box-border text-black">
+        <button id="upload-button" class="bg-none border-none p-0 cursor-pointer outline-none">
+            <img src="upload-minimalistic-svgrepo-com.svg" alt="Upload" class="w-10 h-10 mb-2 p-1 rounded-full bg-white mr-1">
         </button>
-        <button id="send-button">
-            <img src="send-hor-svgrepo-com.svg" alt="Send">
+        <button id="send-button" class="bg-none border-none p-0 cursor-pointer outline-none">
+            <img src="send-hor-svgrepo-com.svg" alt="Send" class="w-10 h-10 mb-2 p-1 rounded-full bg-green-600">
         </button>
     </div>
-    <input type="file" id="file-input" style="display: none;">
+
+    <button id="logout-button" class="absolute top-4 right-4 p-2 rounded-lg bg-red-600 text-white font-medium transition duration-300 hover:bg-red-700 hidden">Logout</button>
+    <input type="file" id="file-input" class="hidden">
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
