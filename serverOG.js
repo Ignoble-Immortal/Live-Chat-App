@@ -88,49 +88,40 @@ io.use((socket, next) => {
         next(new Error('Authentication error'));
     }
 });
-// Include all existing code above
 
 io.on('connection', (socket) => {
-    socket.on('join room', ({ room }) => {
+    socket.on('join room', ({room}) => {
         socket.join(room);
         socket.room = room;
 
-        // Send previous chat history to the new user
-        if (chatRooms[room]) {
-            chatRooms[room].forEach((message) => {
+        socket.to(room).emit('chat message', {username: 'System', msg: `${socket.username} has joined the room.`});
+
+        if(chatRooms[room]){
+            chatRooms[room].forEach(message => {
                 socket.emit(message.type, message);
             });
         }
 
-        // Notify others in the room
-        const systemMessage = { type: 'chat message', username: 'System', msg: `${socket.username} has joined the room.`, sender: null };
-        io.to(room).emit('chat message', systemMessage);
-
-        // Handle incoming text messages
         socket.on('chat message', (msg) => {
-            const message = { type: 'chat message', username: socket.username, msg, sender: socket.id };
-            if (!chatRooms[room]) chatRooms[room] = [];
+            const message = {type: 'chat message', username: socket.username, msg, sender: socket.id};
+            if(!chatRooms[room]) chatRooms[room] = [];
             chatRooms[room].push(message);
-            io.to(room).emit('chat message', message);
+            io.to(socket.room).emit('chat message', message);
         });
 
-        // Handle file messages
         socket.on('file message', (filename) => {
-            const message = { type: 'file message', username: socket.username, filename, sender: socket.id };
-            if (!chatRooms[room]) chatRooms[room] = [];
+            const message = {type: 'file message', username: socket.username, filename, sender: socket.id};
+            if(!chatRooms[room]) chatRooms[room] = [];
             chatRooms[room].push(message);
-            io.to(room).emit('file message', message);
+            io.to(socket.room).emit('file message', message);
         });
 
-        // Notify others on disconnect
         socket.on('disconnect', () => {
-            const systemMessage = { type: 'chat message', username: 'System', msg: `${socket.username} has left the room.`, sender: null };
-            io.to(room).emit('chat message', systemMessage);
+            socket.to(socket.room).emit('chat message', {username: 'System', msg: `${socket.username} has left the room.`});
         });
     });
 });
 
-// Existing code below
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
