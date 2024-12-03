@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#messages {
+    scrollbar-width: none;
+}
+
+#messages::-webkit-scrollbar {
+    display: none;
+}
+
+#messages li {
+    padding: 8px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.sender {
+    justify-content: flex-end;
+    display: flex;
+}
+
+.receiver {
+    justify-content: flex-start;
+    display: flex;
+}
+
+.message-content {
+    max-width: 60%;
+    padding: 8px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    color: black;
+}
+
+.system-message {
+    justify-content: center;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
