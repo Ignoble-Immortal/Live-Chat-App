@@ -43,16 +43,23 @@ app.use('/uploads', express.static('uploads'));
 
 const chatRooms = {};
 
-//Routes for signup and login
 app.post('/signup', async (req, res) => {
-    const {email, password, username} = req.body;
+    const { email, password, username } = req.body;
+    if(password.length < 8){
+        return res.status(400).json({error: 'Password must be at least 8 characters long'});
+    }
+
     try{
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({email, password: hashedPassword, username});
+        const user = new User({ email, password: hashedPassword, username });
         await user.save();
-        res.json({message: 'User created successfully'});
+        res.json({ message: 'User created successfully' });
     }catch(err){
-        res.status(500).json({ error: 'Failed to create user' });
+        if(err.name === 'ValidationError'){
+            return res.status(400).json({error: err.message});
+        }
+
+        res.status(500).json({error: 'Failed to create user'});
     }
 });
 
@@ -88,49 +95,41 @@ io.use((socket, next) => {
         next(new Error('Authentication error'));
     }
 });
-// Include all existing code above
 
 io.on('connection', (socket) => {
     socket.on('join room', ({ room }) => {
         socket.join(room);
         socket.room = room;
-
-        // Send previous chat history to the new user
-        if (chatRooms[room]) {
+        if(chatRooms[room]){
             chatRooms[room].forEach((message) => {
                 socket.emit(message.type, message);
             });
         }
 
-        // Notify others in the room
-        const systemMessage = { type: 'chat message', username: 'System', msg: `${socket.username} has joined the room.`, sender: null };
+        const systemMessage = {type: 'chat message', username: 'System', msg: `${socket.username} has joined the room.`, sender: null};
         io.to(room).emit('chat message', systemMessage);
 
-        // Handle incoming text messages
         socket.on('chat message', (msg) => {
-            const message = { type: 'chat message', username: socket.username, msg, sender: socket.id };
-            if (!chatRooms[room]) chatRooms[room] = [];
+            const message = {type: 'chat message', username: socket.username, msg, sender: socket.id};
+            if(!chatRooms[room]) chatRooms[room] = [];
             chatRooms[room].push(message);
             io.to(room).emit('chat message', message);
         });
 
-        // Handle file messages
         socket.on('file message', (filename) => {
-            const message = { type: 'file message', username: socket.username, filename, sender: socket.id };
-            if (!chatRooms[room]) chatRooms[room] = [];
+            const message = {type: 'file message', username: socket.username, filename, sender: socket.id};
+            if(!chatRooms[room]) chatRooms[room] = [];
             chatRooms[room].push(message);
             io.to(room).emit('file message', message);
         });
 
-        // Notify others on disconnect
         socket.on('disconnect', () => {
-            const systemMessage = { type: 'chat message', username: 'System', msg: `${socket.username} has left the room.`, sender: null };
+            const systemMessage = {type: 'chat message', username: 'System', msg: `${socket.username} has left the room.`, sender: null};
             io.to(room).emit('chat message', systemMessage);
         });
     });
 });
 
-// Existing code below
 server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is Listening to Port ${PORT}`);
 });
