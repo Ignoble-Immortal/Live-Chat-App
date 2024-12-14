@@ -1,4 +1,4 @@
-#Live Chat Application
+# Live Chat Application
 
 This Chat Application is a real-time messaging platform that allows users to communicate instantly with each other. Designed with a minimalistic and modern interface, it offers a seamless chatting experience. Users can sign up, log in, and start conversations with friends or colleagues by creating or joining rooms. Built using the latest web technologies, the application ensures fast, reliable, and secure messaging. Key features include user authentication, real-time updates, and a responsive design. Perfect for personal use, team collaboration, or customer support.
 
@@ -34,6 +34,7 @@ JWT_SECRET=your_jwt_secret_key
 ```
 
 ## To Start the project
+
 ```sh
 npm start
 ```
